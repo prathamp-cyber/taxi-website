@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Ride | LuxeRide</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFD700',
+                        primaryHover: '#E5C100',
+                        dark: '#111111',
+                        darker: '#050505',
+                        light: '#F8F9FA',
+                        grey: '#222222',
+                        lightGrey: '#444444'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.7)',
+                        'glow': '0 0 20px rgba(255, 215, 0, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* Modal Animation Styles */
+        #confirmation-modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        #confirmation-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #modal-content {
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #confirmation-modal.show #modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            stroke-width: 2;
+            stroke: #FFD700;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #FFD700;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .success-checkmark circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #FFD700;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .success-checkmark path {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes scale {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+        @keyframes fill {
+            100% { box-shadow: inset 0px 0px 0px 30px rgba(255, 215, 0, 0.1); }
+        }
+    </style>
+</head>
+<body class="bg-darker text-light relative antialiased min-h-screen py-10">
+
+    <div class="container mx-auto px-4 max-w-6xl">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-10">
+            <a href="index.html" class="text-3xl font-bold tracking-tighter text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="text-primary"><i class="fa-solid fa-taxi"></i></span> LuxeRide
+            </a>
+            <a href="index.html" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-10">
+            
+            <!-- Booking Form -->
+            <div class="lg:col-span-7 bg-grey/60 border border-lightGrey p-8 md:p-10 rounded-3xl shadow-soft">
+                <h1 class="text-3xl font-bold text-white mb-2">Book Your Ride</h1>
+                <p class="text-gray-400 mb-8 text-sm">Please fill in the details below. Our driver will be assigned shortly.</p>
+                
+                <form id="booking-form" class="space-y-6">
+                    
+                    <!-- Top section: Personal Details -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Full Name *</label>
+                            <input type="text" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Phone Number *</label>
+                            <input type="tel" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Email Address *</label>
+                        <input type="email" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                    </div>
+
+                    <hr class="border-lightGrey my-4">
+
+                    <!-- Location Details -->
+                    <div class="grid md:grid-cols-2 gap-6 relative">
+                        <!-- Visual connector dot -->
+                        <div class="hidden md:block absolute left-1/2 top-10 bottom-10 w-0.5 bg-lightGrey -translate-x-1/2 z-0"></div>
+                        
+                        <div class="space-y-2 relative z-10">
+                            <label class="text-sm font-medium text-gray-300"><i class="fa-solid fa-location-dot text-primary mr-2"></i>Pickup Location *</label>
+                            <input type="text" required placeholder="Street, Airport or Hotel" class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                        <div class="space-y-2 relative z-10">
+                            <label class="text-sm font-medium text-gray-300"><i class="fa-solid fa-location-arrow text-primary mr-2"></i>Drop Location *</label>
+                            <input type="text" required placeholder="Destination address" class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Date & Time -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Pickup Date *</label>
+                            <input type="date" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-primary appearance-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Pickup Time *</label>
+                            <input type="time" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-primary appearance-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Return Date</label>
+                            <input type="date" class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-primary appearance-none">
+                        </div>
+                    </div>
+
+                    <hr class="border-lightGrey my-4">
+
+                    <!-- Car Options (Bound to Preview) -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-2 md:col-span-1">
+                            <label class="text-sm font-medium text-gray-300">Car Type *</label>
+                            <div class="relative">
+                                <select id="car-type-select" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-4 pr-10 text-white focus:outline-none focus:border-primary appearance-none">
+                                    <option value="economy" data-image="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=600" data-name="Economy Sedan">Economy Sedan</option>
+                                    <option value="premium" data-image="https://images.unsplash.com/photo-1617469165786-8007eda3caa7?auto=format&fit=crop&q=80&w=600" data-name="Premium Sedan" selected>Premium Sedan</option>
+                                    <option value="luxury" data-image="https://images.unsplash.com/photo-1503376760367-158385da864e?auto=format&fit=crop&q=80&w=600" data-name="Luxury Class">Luxury Class</option>
+                                    <option value="suv" data-image="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&q=80&w=600" data-name="Comfort SUV">Comfort SUV</option>
+                                    <option value="minivan" data-image="https://images.unsplash.com/photo-1518331393666-3d74c0e359a3?auto=format&fit=crop&q=80&w=600" data-name="Mini Van">Mini Van</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Seating Capacity *</label>
+                            <div class="relative">
+                                <select required class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-4 pr-10 text-white focus:outline-none focus:border-primary appearance-none">
+                                    <option value="4">4 Seater</option>
+                                    <option value="6">6 Seater</option>
+                                    <option value="7">7 Seater</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Passengers *</label>
+                            <input type="number" min="1" max="7" value="1" required class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Special Instructions (Optional)</label>
+                        <textarea rows="3" placeholder="E.g. Extra luggage space needed, child seat required, etc." class="w-full bg-darker border border-lightGrey rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary transition-colors"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary text-dark font-bold text-lg py-4 rounded-xl hover:bg-white hover:shadow-glow transition-all duration-300 mt-4 flex items-center justify-center gap-2">
+                        Submit Booking <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Preview Card -->
+            <div class="lg:col-span-5 h-full">
+                <div class="bg-gradient-to-br from-grey to-darker border border-lightGrey rounded-3xl p-8 sticky top-24 shadow-soft">
+                    <h3 class="text-xl font-bold text-white mb-6 border-b border-lightGrey pb-4">Trip Summary</h3>
+                    
+                    <div class="w-full h-48 bg-darker rounded-2xl mb-6 relative flex items-center justify-center overflow-hidden border border-lightGrey">
+                        <!-- Car Image Preview -->
+                        <img id="car-preview-image" src="https://images.unsplash.com/photo-1617469165786-8007eda3caa7?auto=format&fit=crop&q=80&w=600" alt="Selected Car" class="w-full h-full object-contain mix-blend-screen scale-110 transition-transform duration-500 max-w-[90%]">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker/80 to-transparent pointer-events-none"></div>
+                        <span id="car-preview-name" class="absolute bottom-4 left-4 font-bold text-primary px-3 py-1 bg-darker/80 rounded-lg text-sm">Premium Sedan</span>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">Estimated Fare</span>
+                            <span class="text-white font-bold text-lg">---</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">Taxes & Fees</span>
+                            <span class="text-white font-bold opacity-50">Calculated later</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-darker p-4 rounded-xl border border-lightGrey flex gap-4 items-center">
+                        <i class="fa-solid fa-shield-halved text-2xl text-primary"></i>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">100% Secure Booking</h4>
+                            <p class="text-xs text-gray-400">Your details are encrypted and entirely secure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-darker/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div id="modal-content" class="bg-grey border border-primary/30 p-8 md:p-12 rounded-3xl max-w-md w-full text-center shadow-glow relative">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full bg-darker">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <svg class="success-checkmark mb-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="success-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            
+            <h2 class="text-2xl font-bold text-white mb-4">Booking Confirmed!</h2>
+            <p class="text-gray-400 mb-8 leading-relaxed">
+                Your ride request has been received. Our driver will contact you shortly with vehicle details and exact ETA.
+            </p>
+            <a href="index.html" class="inline-block bg-primary text-dark font-bold py-3 px-8 rounded-full hover:bg-white transition-colors w-full">
+                Done
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Car Preview Update Logic
+            const carSelect = document.getElementById('car-type-select');
+            const previewImage = document.getElementById('car-preview-image');
+            const previewName = document.getElementById('car-preview-name');
+
+            carSelect.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const newImageUrl = selectedOption.getAttribute('data-image');
+                const newName = selectedOption.getAttribute('data-name');
+                
+                // Add fade effect
+                previewImage.style.opacity = '0';
+                
+                setTimeout(() => {
+                    previewImage.src = newImageUrl;
+                    previewName.textContent = newName;
+                    previewImage.style.opacity = '1';
+                }, 200);
+            });
+
+            // Form Submit Logic
+            const bookingForm = document.getElementById('booking-form');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent page reload
+                
+                // Change button state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="loader"></span> Processing...';
+                
+                // Simulate network request
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    confirmationModal.classList.add('show');
+                }, 1500);
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                confirmationModal.classList.remove('show');
+            });
+            
+            // Close modal on click outside
+            confirmationModal.addEventListener('click', (e) => {
+                if(e.target === confirmationModal) {
+                    confirmationModal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

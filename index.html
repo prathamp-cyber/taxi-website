@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeRide | Premium Taxi Service</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFD700', // Premium Yellow
+                        primaryHover: '#E5C100',
+                        dark: '#111111',
+                        darker: '#050505',
+                        light: '#F8F9FA',
+                        grey: '#222222',
+                        lightGrey: '#444444'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.7)',
+                        'glow': '0 0 20px rgba(255, 215, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-darker text-light relative overflow-x-hidden antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6" id="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold tracking-tighter text-white flex items-center gap-2">
+                <span class="text-primary"><i class="fa-solid fa-taxi"></i></span> LuxeRide
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#home" class="nav-link text-white hover:text-primary transition-colors">Home</a>
+                <a href="#fleet" class="nav-link text-white hover:text-primary transition-colors">Our Fleet</a>
+                <a href="#how-it-works" class="nav-link text-white hover:text-primary transition-colors">How It Works</a>
+                <a href="#routes" class="nav-link text-white hover:text-primary transition-colors">Routes</a>
+                <a href="#reviews" class="nav-link text-white hover:text-primary transition-colors">Reviews</a>
+            </div>
+            
+            <div class="hidden md:block">
+                <a href="booking.html" class="bg-primary text-dark font-bold py-3 px-6 rounded-full hover:bg-white hover:shadow-glow transition-all duration-300">
+                    Book a Ride
+                </a>
+            </div>
+            
+            <button class="md:hidden text-white text-2xl" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-darker z-40 hidden flex-col justify-center items-center gap-8 text-2xl font-semibold opacity-0">    
+        <a href="#home" class="text-white hover:text-primary transition-colors mobile-link">Home</a>
+        <a href="#fleet" class="text-white hover:text-primary transition-colors mobile-link">Our Fleet</a>
+        <a href="#how-it-works" class="text-white hover:text-primary transition-colors mobile-link">How It Works</a>
+        <a href="#routes" class="text-white hover:text-primary transition-colors mobile-link">Routes</a>
+        <a href="booking.html" class="bg-primary text-dark py-3 px-8 rounded-full mt-4">Book a Ride</a>
+    </div>
+
+    <!-- 1. Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Parallax Background -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-darker via-darker/80 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-darker via-transparent z-10"></div>
+            <!-- Added dark gradient overlay so UI elements are visible -->
+            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=2000" alt="Premium Taxi" class="w-full h-full object-cover hero-bg opacity-40">
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Hero Content -->
+            <div class="hero-content">
+                <div class="inline-block px-4 py-2 rounded-full bg-grey border border-lightGrey mb-6">
+                    <span class="text-primary font-semibold text-sm mr-2"><i class="fa-solid fa-star"></i> Rated 4.9/5</span>
+                    <span class="text-gray-300 text-sm">by 10,000+ passengers</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                    Reliable Taxi <br> Service Anytime, <br> <span class="text-primary">Anywhere.</span>
+                </h1>
+                <p class="text-lg text-gray-400 mb-8 max-w-lg">
+                    Experience fast, safe, and comfortable rides at your fingertips. From premium sedans to spacious SUVs, we have the perfect ride for every occasion.
+                </p>
+                <div class="flex flex-wrap gap-4 items-center mb-12">
+                    <a href="#fleet" class="bg-transparent border border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-dark transition-all duration-300">
+                        View Fleet
+                    </a>
+                </div>
+                
+                <div class="flex gap-8 stats-container">
+                    <div>
+                        <h3 class="text-3xl font-bold text-white"><span class="counter" data-target="2">0</span>M+</h3>
+                        <p class="text-sm text-gray-500 font-medium">Rides Completed</p>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-white"><span class="counter" data-target="500">0</span>+</h3>
+                        <p class="text-sm text-gray-500 font-medium">Professional Drivers</p>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-white">24/7</h3>
+                        <p class="text-sm text-gray-500 font-medium">Customer Support</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Booking Form -->
+            <div class="hero-form-container justify-self-center lg:justify-self-end w-full max-w-md">
+                <div class="bg-grey/80 backdrop-blur-xl border border-lightGrey p-8 rounded-3xl shadow-soft">
+                    <h3 class="text-2xl font-bold text-white mb-6">Book Your Ride</h3>
+                    <form action="booking.html" method="GET" class="space-y-4">
+                        <div class="relative">
+                            <i class="fa-solid fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-primary"></i>
+                            <input type="text" placeholder="Pickup Location" class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:border-primary transition-colors" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-location-arrow absolute left-4 top-1/2 -translate-y-1/2 text-primary"></i>
+                            <input type="text" placeholder="Drop Location" class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:border-primary transition-colors" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="relative">
+                                <i class="fa-regular fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="date" class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-10 pr-2 text-white text-sm focus:outline-none focus:border-primary appearance-none" required>
+                            </div>
+                            <div class="relative">
+                                <i class="fa-regular fa-clock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="time" class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-10 pr-2 text-white text-sm focus:outline-none focus:border-primary appearance-none" required>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-car absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <select class="w-full bg-darker border border-lightGrey rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:border-primary appearance-none">
+                                <option value="" disabled selected>Select Car Type</option>
+                                <option value="sedan">Economy Sedan (4 Seater)</option>
+                                <option value="premium">Premium Sedan (4 Seater)</option>
+                                <option value="suv">SUV (6 Seater)</option>
+                                <option value="minivan">Mini Van (7 Seater)</option>
+                                <option value="luxury">Luxury Car (4 Seater)</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none"></i>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-dark font-bold text-lg py-4 rounded-xl hover:bg-primaryHover transition-colors mt-2">
+                            Book Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Why Choose Us -->
+    <section class="py-24 bg-dark relative z-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 section-header">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm">Why Choose Us</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">Premium Experience</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-grey p-8 rounded-2xl border border-lightGrey hover:border-primary transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-full bg-darker flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-dark transition-all duration-300">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Professional Drivers</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Our drivers are strictly vetted, highly trained, and committed to providing a safe, comfortable journey.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card bg-grey p-8 rounded-2xl border border-lightGrey hover:border-primary transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-full bg-darker flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-dark transition-all duration-300">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Affordable Pricing</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Enjoy premium rides at competitive, transparent prices with no hidden surges or fees.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card bg-grey p-8 rounded-2xl border border-lightGrey hover:border-primary transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-full bg-darker flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-dark transition-all duration-300">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Clean & Comfortable</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Our fleet is meticulously sanitized and maintained to ensure a pristine environment for every ride.
+                    </p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card bg-grey p-8 rounded-2xl border border-lightGrey hover:border-primary transition-all duration-300 group">
+                    <div class="w-16 h-16 rounded-full bg-darker flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-dark transition-all duration-300">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Our dedicated customer support team is available around the clock to assist you with any inquiries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Our Fleet Section -->
+    <section id="fleet" class="py-24 bg-darker relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 section-header">
+                <div>
+                    <span class="text-primary font-bold tracking-wider uppercase text-sm">Top Class</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2">Explore Our Fleet</h2>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <a href="booking.html" class="text-white hover:text-primary transition-colors flex items-center gap-2 font-medium">
+                        View all cars <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fleet Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Car Card 1 -->
+                <div class="car-card bg-grey rounded-3xl overflow-hidden border border-lightGrey group cursor-pointer relative">
+                    <div class="pt-8 px-8 pb-4 relative h-64 bg-gradient-to-b from-darker flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=600" alt="Economy Sedan" class="w-full object-contain -pb-12 group-hover:scale-105 transition-transform duration-500 relative z-10 drop-shadow-2xl">
+                    </div>
+                    <div class="p-8 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-1">Economy Sedan</h3>
+                                <p class="text-sm text-gray-400">Toyota Camry or similar</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-primary">$1.5</span>
+                                <span class="text-sm text-gray-400 block">/ km</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 text-sm text-gray-300 mb-6 border-t border-lightGrey pt-4">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-users text-primary"></i> 4</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-suitcase text-primary"></i> 2</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-snowflake text-primary"></i> AC</span>
+                        </div>
+                        <a href="booking.html" class="block w-full text-center border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-dark transition-colors">
+                            Select Car
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Car Card 2 -->
+                <div class="car-card bg-grey rounded-3xl overflow-hidden border border-lightGrey group cursor-pointer relative">
+                    <div class="pt-8 px-8 pb-4 relative h-64 bg-gradient-to-b from-darker flex items-center justify-center">
+                        <span class="absolute top-4 right-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded-full z-20">Popular</span>
+                        <img src="https://images.unsplash.com/photo-1617469165786-8007eda3caa7?auto=format&fit=crop&q=80&w=600" alt="Premium Sedan" class="w-full object-contain group-hover:scale-105 transition-transform duration-500 relative z-10 drop-shadow-2xl">
+                    </div>
+                    <div class="p-8 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-1">Premium Sedan</h3>
+                                <p class="text-sm text-gray-400">Mercedes-Benz E-Class</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-primary">$2.5</span>
+                                <span class="text-sm text-gray-400 block">/ km</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 text-sm text-gray-300 mb-6 border-t border-lightGrey pt-4">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-users text-primary"></i> 4</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-suitcase text-primary"></i> 3</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-wifi text-primary"></i> WiFi</span>
+                        </div>
+                        <a href="booking.html" class="block w-full text-center border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-dark transition-colors">
+                            Select Car
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Car Card 3 -->
+                <div class="car-card bg-grey rounded-3xl overflow-hidden border border-lightGrey group cursor-pointer relative">
+                    <div class="pt-8 px-8 pb-4 relative h-64 bg-gradient-to-b from-darker flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&q=80&w=600" alt="SUV" class="w-full object-contain group-hover:scale-105 transition-transform duration-500 relative z-10 drop-shadow-2xl">
+                    </div>
+                    <div class="p-8 pt-0">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-1">Comfort SUV</h3>
+                                <p class="text-sm text-gray-400">Range Rover or similar</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-primary">$3.0</span>
+                                <span class="text-sm text-gray-400 block">/ km</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 text-sm text-gray-300 mb-6 border-t border-lightGrey pt-4">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-users text-primary"></i> 6</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-suitcase text-primary"></i> 5</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-snowflake text-primary"></i> AC</span>
+                        </div>
+                        <a href="booking.html" class="block w-full text-center border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-dark transition-colors">
+                            Select Car
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="booking.html" class="inline-block bg-grey border p-4 px-12 border-lightGrey rounded-full hover:border-primary transition-colors text-white font-semibold">
+                    Show More Vehicles
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. How It Works -->
+    <section id="how-it-works" class="py-24 bg-dark relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 section-header">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm">Simple Process</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">How It Works</h2>
+            </div>
+            
+            <div class="relative max-w-5xl mx-auto">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-dark via-lightGrey to-dark -translate-y-1/2 z-0"></div>
+                
+                <div class="grid md:grid-cols-3 gap-12 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="step-card text-center bg-darker p-8 rounded-3xl border border-grey hover:border-primary transition-colors duration-500 shadow-soft">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-grey border border-lightGrey flex items-center justify-center text-3xl text-primary mb-6 relative hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary text-dark font-bold flex items-center justify-center text-sm">1</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Choose Location</h3>
+                        <p class="text-gray-400 text-sm">
+                            Enter your pickup and drop-off locations easily using our booking form or mobile application.
+                        </p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="step-card text-center bg-darker p-8 rounded-3xl border border-grey hover:border-primary transition-colors duration-500 shadow-soft md:translate-y-8">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-grey border border-lightGrey flex items-center justify-center text-3xl text-primary mb-6 relative hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-car-side"></i>
+                            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary text-dark font-bold flex items-center justify-center text-sm">2</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Select Car</h3>
+                        <p class="text-gray-400 text-sm">
+                            Choose the perfect vehicle for your journey from our extensive fleet of diverse premium cars.
+                        </p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="step-card text-center bg-darker p-8 rounded-3xl border border-grey hover:border-primary transition-colors duration-500 shadow-soft">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-grey border border-lightGrey flex items-center justify-center text-3xl text-primary mb-6 relative hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-face-smile"></i>
+                            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary text-dark font-bold flex items-center justify-center text-sm">3</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Enjoy the Ride</h3>
+                        <p class="text-gray-400 text-sm">
+                            Confirm your booking and our professional driver will arrive promptly to ensure a smooth trip.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Popular Routes -->
+    <section id="routes" class="py-24 bg-darker relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 section-header">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm">Destinations</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">Popular Routes</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Route 1 -->
+                <div class="route-card group block relative rounded-3xl overflow-hidden h-80 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=600" alt="Airport Transfers" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="bg-primary text-dark text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block">Starting $45</span>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Airport Transfers</h3>
+                        <p class="text-sm text-gray-300 flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            Book Now <i class="fa-solid fa-arrow-right"></i>
+                        </p>
+                    </div>
+                </div>
+                <!-- Route 2 -->
+                <div class="route-card group block relative rounded-3xl overflow-hidden h-80 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80&w=600" alt="City Tours" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="bg-primary text-dark text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block">Hourly Rate</span>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">City Tours</h3>
+                        <p class="text-sm text-gray-300 flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            Explore <i class="fa-solid fa-arrow-right"></i>
+                        </p>
+                    </div>
+                </div>
+                <!-- Route 3 -->
+                <div class="route-card group block relative rounded-3xl overflow-hidden h-80 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600" alt="Outstation Trips" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="bg-primary text-dark text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block">Custom Fare</span>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Outstation Trips</h3>
+                        <p class="text-sm text-gray-300 flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </p>
+                    </div>
+                </div>
+                <!-- Route 4 -->
+                <div class="route-card group block relative rounded-3xl overflow-hidden h-80 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" alt="Corporate Travel" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="bg-primary text-dark text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block">B2B Plans</span>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Corporate Travel</h3>
+                        <p class="text-sm text-gray-300 flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            Contact Us <i class="fa-solid fa-arrow-right"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Testimonials -->
+    <section id="reviews" class="py-24 bg-dark relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 section-header">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm">Testimonials</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">What Our Clients Say</h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Wrapper for slider -->
+                <div class="overflow-hidden rounded-3xl" id="testimonial-slider-container">
+                    <div class="flex transition-transform duration-500 ease-in-out" id="testimonial-track">
+                        
+                        <!-- Testimonial 1 -->
+                        <div class="w-full flex-shrink-0 bg-grey p-10 md:p-16 border border-lightGrey rounded-3xl text-center">
+                            <div class="flex justify-center text-primary mb-6 text-xl">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-xl md:text-2xl font-light text-gray-300 leading-relaxed mb-8 italic">
+                                "The best taxi service I have ever used. The driver arrived on time, was extremely courteous, and the premium sedan was impeccably clean. Highly recommend for airport transfers!"
+                            </p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-14 h-14 rounded-full border-2 border-primary">
+                                <div class="text-left">
+                                    <h4 class="font-bold text-white">Robert Fox</h4>
+                                    <span class="text-sm text-gray-500">Business Traveler</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="w-full flex-shrink-0 bg-grey p-10 md:p-16 border border-lightGrey rounded-3xl text-center">
+                            <div class="flex justify-center text-primary mb-6 text-xl">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-xl md:text-2xl font-light text-gray-300 leading-relaxed mb-8 italic">
+                                "Incredibly smooth booking process and a wonderful ride. We booked a 7-seater SUV for a family trip and it was spacious and comfortable. The pricing was also very transparent."
+                            </p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-14 h-14 rounded-full border-2 border-primary">
+                                <div class="text-left">
+                                    <h4 class="font-bold text-white">Eleanor Pena</h4>
+                                    <span class="text-sm text-gray-500">Tourist</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="flex justify-center gap-4 mt-8">
+                    <button id="prev-btn" class="w-12 h-12 rounded-full border border-lightGrey bg-darker text-white hover:bg-primary hover:text-dark hover:border-primary transition-colors flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button id="next-btn" class="w-12 h-12 rounded-full border border-lightGrey bg-darker text-white hover:bg-primary hover:text-dark hover:border-primary transition-colors flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. App Promotion Section -->
+    <section class="py-0 bg-primary relative overflow-hidden mt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="py-20 lg:py-32 app-content z-10">
+                    <h2 class="text-4xl md:text-5xl font-bold text-dark mb-6">
+                        Download Our Mobile App
+                    </h2>
+                    <p class="text-lg text-dark/80 mb-10 max-w-lg font-medium">
+                        Get the full LuxeRide experience in your pocket. Track your driver in real-time, get exclusive discounts, and manage all your bookings with just a few taps.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="bg-dark text-white px-6 py-3 rounded-xl flex items-center gap-3 hover:bg-black transition-colors transform hover:-translate-y-1">
+                            <i class="fa-brands fa-apple text-3xl"></i>
+                            <div class="text-left">
+                                <span class="text-[10px] block leading-none text-gray-300">Download on the</span>
+                                <span class="font-bold text-lg leading-tight">App Store</span>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-dark text-white px-6 py-3 rounded-xl flex items-center gap-3 hover:bg-black transition-colors transform hover:-translate-y-1">
+                            <i class="fa-brands fa-google-play text-3xl"></i>
+                            <div class="text-left">
+                                <span class="text-[10px] block leading-none text-gray-300">GET IT ON</span>
+                                <span class="font-bold text-lg leading-tight">Google Play</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative h-full hidden lg:block">
+                    <!-- App Mockup Image floating -->
+                    <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=800" alt="App Preview" class="absolute bottom-0 right-0 w-[500px] h-auto object-cover rounded-t-3xl shadow-2xl translate-y-20 rotate-[-5deg] mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Footer -->
+    <footer class="bg-darker pt-24 pb-12 border-t border-grey">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="index.html" class="text-3xl font-bold tracking-tighter text-white flex items-center gap-2 mb-6">
+                        <span class="text-primary"><i class="fa-solid fa-taxi"></i></span> LuxeRide
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Providing premium, reliable, and comfortable transportation services across the city and beyond. Your journey, our priority.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-grey border border-lightGrey flex items-center justify-center text-white hover:bg-primary hover:text-dark transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-grey border border-lightGrey flex items-center justify-center text-white hover:bg-primary hover:text-dark transition-colors">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-grey border border-lightGrey flex items-center justify-center text-white hover:bg-primary hover:text-dark transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-grey border border-lightGrey flex items-center justify-center text-white hover:bg-primary hover:text-dark transition-colors">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#fleet" class="text-gray-400 hover:text-primary transition-colors">Our Fleet</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-primary transition-colors">How It Works</a></li>
+                        <li><a href="booking.html" class="text-gray-400 hover:text-primary transition-colors">Book a Ride</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6">Our Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Airport Transfers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">City Tours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Corporate Travel</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Wedding Transport</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Point to Point</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-primary"></i>
+                            <span class="text-gray-400">123 Premium Drive, NY 10001, New York City, USA</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primary"></i>
+                            <a href="tel:+1234567890" class="text-gray-400 hover:text-primary transition-colors">+1 (234) 567-890</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-primary"></i>
+                            <a href="mailto:support@luxeride.com" class="text-gray-400 hover:text-primary transition-colors">support@luxeride.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-grey text-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2026 LuxeRide Premium Taxi Service. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP Custom Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
