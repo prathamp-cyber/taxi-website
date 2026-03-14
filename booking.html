@@ -10,7 +10,18 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Tailwind CSS -->
+    <script>
+        const _originalWarn = console.warn;
+        console.warn = function(msg, ...args) {
+            if (typeof msg === 'string' && msg.includes('cdn.tailwindcss.com should not be used in production')) return;
+            _originalWarn.apply(console, [msg, ...args]);
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon Override -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128330;</text></svg>">
+    
     <script>
         tailwind.config = {
             theme: {

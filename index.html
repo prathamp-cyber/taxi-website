@@ -12,7 +12,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
+    <script>
+        const _originalWarn = console.warn;
+        console.warn = function(msg, ...args) {
+            if (typeof msg === 'string' && msg.includes('cdn.tailwindcss.com should not be used in production')) return;
+            _originalWarn.apply(console, [msg, ...args]);
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon Override -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128330;</text></svg>">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -173,7 +184,10 @@
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 section-header">
                 <span class="text-primary font-bold tracking-wider uppercase text-sm">Why Choose Us</span>
-                <h2 class="text-4xl md:text-5xl font-bold mt-2">Premium Experience</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Premium Experience</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed mt-4">
+                    We pride ourselves on delivering nothing short of excellence. Our commitment to quality ensures that every ride you take with LuxeRide is comfortable, safe, and truly unforgettable.
+                </p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
